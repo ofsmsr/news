@@ -1,7 +1,7 @@
 var mongodb = require('./mongodb');
 
 module.exports.login = function(req, res) {
-    
+
     if (req.method == 'POST') {
         var jsonString = '';
 
@@ -15,7 +15,7 @@ module.exports.login = function(req, res) {
                 mongodb.assert.equal(null, err);
                 findUser(db, obj, res, function(res) {
                     db.close();
-                    res.send({});
+                   res.send({});
                 });
             });
         });
@@ -29,9 +29,7 @@ var findUser = function(db, findObj, res, callback) {
       if (doc != null) {
          res.send(doc);
       } else {
-         callback(res);         
+         callback(res);
       }
    });
 };
-
-
