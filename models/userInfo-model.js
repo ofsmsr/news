@@ -6,7 +6,7 @@ module.exports.userInfo = function(req, res) {
         mongodb.MongoClient.connect(mongodb.url, function(err, db) {
             mongodb.assert.equal(null, err);
             var obj = {};
-            getUsers(db, function(res) {
+            getUsers(db, obj, res, function(res) {
                db.close();
                res.send({});
             });
@@ -34,7 +34,7 @@ module.exports.userInfo = function(req, res) {
 };
 
 var saveUser = function(db, obj, res, callback) {
-   var cursor =db.collection('userInfo_col').insert(obj);
+   var cursor =db.collection('userInfo_col').insertOne(obj);
    cursor.each(function(err, doc) {
       mongodb.assert.equal(err, null);
       if (doc != null) {
@@ -46,11 +46,11 @@ var saveUser = function(db, obj, res, callback) {
 };
 
 var getUsers = function(db, obj, res, callback) {
-   var cursor =db.collection('userInfo_col').find( );
-   cursor.each(function(err, doc) {
+   var cursor =db.collection('userinfo_col').find( );
+   cursor.toArray(function(err, doc) {
       mongodb.assert.equal(err, null);
       if (doc != null) {
-         res.send(doc);
+          res.send(doc);
       } else {
          callback(res);
       }
